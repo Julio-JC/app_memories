@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "735274580659",
+    "project_id": "app-memories-jcj",
+    "storage_bucket": "app-memories-jcj.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:735274580659:android:d30bf2d99e48569752cec6",
+        "android_client_info": {
+          "package_name": "com.example.app_memories"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "735274580659-ut9usngq5shu1tok1fk3b0fb2o0690m0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASwp6nmN45e9FjjL772CenVQVDDN6Q_eU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "735274580659-ut9usngq5shu1tok1fk3b0fb2o0690m0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
