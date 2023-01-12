@@ -1,5 +1,9 @@
+import 'dart:async';
+import 'package:app_memories/page/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import 'home_page.dart';
 
 class ChecagemPage extends StatefulWidget {
   const ChecagemPage({super.key});
@@ -9,23 +13,35 @@ class ChecagemPage extends StatefulWidget {
 }
 
 class _ChecagemPageState extends State<ChecagemPage> {
+  StreamSubscription? streamSubscription;
+
   @override
   void initState() {
     super.initState();
-
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+    streamSubscription =
+        FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user == null) {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => HomePage(),
+            builder: (context) => const LoginPage(),
           ),
         );
-        print('Você não esta logado!');
       } else {
-        print('Você esta logado!');
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomePage(),
+          ),
+        );
       }
     });
+  }
+
+  @override
+  void dispose() {
+    streamSubscription!.cancel();
+    super.dispose();
   }
 
   @override
