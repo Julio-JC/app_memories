@@ -11,6 +11,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  String nome = '';
+
+  @override
+  void initState() {
+    super.initState();
+    user();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +25,7 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text('Suas lembraças'),
+          title: Text('Lembraças de $nome '),
           backgroundColor: Colors.purple,
           actions: [
             IconButton(
@@ -34,6 +41,15 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  Future<void> user() async {
+    User? user = _firebaseAuth.currentUser;
+    if (user != null) {
+      setState(() {
+        nome = user.displayName!;
+      });
+    }
   }
 
   logout() async {

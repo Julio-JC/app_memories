@@ -1,4 +1,7 @@
+import 'dart:ffi';
+
 import 'package:app_memories/page/home_page.dart';
+import 'package:app_memories/page/registration_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -24,18 +27,20 @@ class _LoginPageState extends State<LoginPage> {
           child: Padding(
             padding: const EdgeInsets.only(top: 80, bottom: 80),
             child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const Icon(
-                    Icons.login,
-                    size: 50,
-                    color: Colors.purple,
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Expanded(
-                    child: ListView(children: [
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.login,
+                  size: 50,
+                  color: Colors.purple,
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                Expanded(
+                  child: ListView(
+                    children: [
                       TextField(
                         controller: _emailController,
                         decoration: const InputDecoration(
@@ -59,18 +64,44 @@ class _LoginPageState extends State<LoginPage> {
                           fillColor: Colors.white,
                         ),
                       ),
-                    ]),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TextButton(
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const RegistrationPage(),
+                                  ),
+                                );
+                              },
+                              child: const Text('Se cadastrar aqui.'))
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      SizedBox(
+                        height: 60,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            login();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.purple,
+                          ),
+                          child: const Text('Login',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.w800)),
+                        ),
+                      ),
+                    ],
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      login();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.purple,
-                    ),
-                    child: const Text('Login'),
-                  ),
-                ]),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -85,12 +116,7 @@ class _LoginPageState extends State<LoginPage> {
         password: _passwordController.text,
       );
       if (userCredential != null) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const HomePage(),
-          ),
-        );
+        goHomePage();
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -109,5 +135,14 @@ class _LoginPageState extends State<LoginPage> {
         );
       }
     }
+  }
+
+  goHomePage() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const HomePage(),
+      ),
+    );
   }
 }
